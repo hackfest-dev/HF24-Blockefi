@@ -1,4 +1,4 @@
-export default function page(): JSX.Element {
+export default function Page(): JSX.Element {
   return (
     <div>
       Home Page

@@ -5,8 +5,8 @@
     "**/*.css"
   ],
   "exports": {
-    "./styles.css": "./dist/index.css",
-    "./card": "./src/card.tsx"
+    ".": "./src/index.ts",
+    "./styles.css": "./dist/index.css"
   },
   "license": "MIT",
   "scripts": {
