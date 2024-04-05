@@ -5,11 +5,11 @@ export interface CustomErrorsType {
   isTrue: boolean;
 }
 
-export interface EmailInputProps {
+export interface TextInputProps {
   label?: string;
-  handleEmailChange: (event: ChangeEvent<HTMLInputElement>) => void
-  isEmailEmpty?: boolean;
-  isValidEmail?: boolean;
+  handleTextChange: (event: ChangeEvent<HTMLInputElement>) => void
+  isTextEmpty?: boolean;
+  isValidText?: boolean;
   customErrors?: CustomErrorsType[];
   labelClass?: string;
   inputClass?: string;

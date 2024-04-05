@@ -6,16 +6,18 @@ export function EmailInput(props: EmailInputProps): JSX.Element {
     isEmailEmpty = false,
     isValidEmail = false,
     customErrors = [],
-    handleEmailChange
+    handleEmailChange,
+    labelClass = "",
+    inputClass = ""
   } = props;
 
-  const isCustomErrorTrue = customErrors.every(item => !item.isTrue)
+  const isCustomErrorTrue = customErrors.every(item => !item.isTrue) && customErrors.length
 
   return (
-    <div className=" ui-flex ui-flex-col">
-      <label htmlFor="email">{label}:</label>
+    <div className=" ui-flex ui-flex-col ui-gap-1">
+      <label className={`ui-font-semibold ${labelClass}`} htmlFor="email">{label}:</label>
       <input
-        className={`${isEmailEmpty || isValidEmail || isCustomErrorTrue ? "border-red-500 text-red-500" : "border-slate-300"} border rounded-md py-1 px-2`}
+        className={`${isEmailEmpty || isValidEmail || isCustomErrorTrue ? "ui-border-red-500 ui-text-red-500" : "ui-border-slate-300"} ui-border ui-rounded-md ui-py-1 ui-px-2 ${inputClass}`}
         id="email"
         onChange={handleEmailChange}
         type="email"
@@ -37,6 +39,7 @@ export function EmailInput(props: EmailInputProps): JSX.Element {
           </p>
         ) : null
       )}
+      {!isEmailEmpty && !isCustomErrorTrue ? <p className="ui-text-[0.8em] ui-opacity-0">*</p> : null}
     </div>
   );
 }
