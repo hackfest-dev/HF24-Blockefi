@@ -1,5 +1,12 @@
 import React from "react";
-import { Navbar } from "@repo/ui";
+import { NavListType, Navbar } from "@repo/ui";
+
+const navList: NavListType[] = [
+  { value: "Home", url: "/" },
+  { value: "Add Report", url: "/doctor/add-report" },
+  { value: "Verify Report", url: "/doctor/varify-report" },
+  { value: "Patient Report", url: "/doctor/patient-report" }
+]
 
 export default function Page(): JSX.Element {
   return (
@@ -19,7 +26,7 @@ export default function Page(): JSX.Element {
           <source src="/a.mp4" type="video/mp4" />
         </video>
 
-        <Navbar navList={[]} title="Blockefy" />
+        <Navbar navList={navList} title="Blockefy" />
         <div className="mt-28 grid h-full w-full grid-cols-1 place-items-center lg:mt-14 lg:grid-cols-2">
           <div className="col-span-1 m-20">
             <h1

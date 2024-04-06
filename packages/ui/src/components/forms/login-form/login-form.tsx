@@ -99,7 +99,7 @@ export function LoginForm(): JSX.Element {
           )
         );
 
-      if (responce.status === 200) router.push("/")
+      if (responce.status === 200) router.push("/doctor/patient-report")
     }
   };
 

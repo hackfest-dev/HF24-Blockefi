@@ -1,7 +1,6 @@
 "use client";
 
 import { type FormEvent, useEffect, useState, type ChangeEvent } from "react";
-import { useRouter } from "next/navigation";
 import {
   type CustomErrorsType,
   EmailInput,
@@ -16,7 +15,7 @@ import contractAbi from '../../../utils/DocotorToPatient.json'
 
 export function SignUpForm(): JSX.Element {
   const contractABI = contractAbi.abi
-  let contractAddress='0xe7fcD52458751ab51b6862698120D0271fC0BFf4';
+  let contractAddress='0xFa592013CCAd3e607200c960D758d6EAAa945F07';
   const router = useRouter()
 
   const [name, setName] = useState<string>("");
@@ -113,7 +112,7 @@ export function SignUpForm(): JSX.Element {
           contractABI,
           signer
         );
-        await contractInstance.addPatient(name, 18);
+        await contractInstance.addPatient(email, name, 18);
         router.push("/login")
       }
     };

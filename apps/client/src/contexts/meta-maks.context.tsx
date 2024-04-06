@@ -23,6 +23,9 @@ export function MetaMaskProvider({ children }: { children: ReactNode }): JSX.Ele
 
     useEffect(() => {
         async function connectToMemask(){
+          if(!(window as any).ethereum){
+            console.log("running");
+            
             if((window as any).ethereum) {
               try{
                 const {ethereum}  = window as any;
@@ -40,8 +43,9 @@ export function MetaMaskProvider({ children }: { children: ReactNode }): JSX.Ele
             }
             else alert("metamask is not detected in system");
           }
+        }
 
-          connectToMemask()
+        connectToMemask()
     }, [])
     
     return <MetaMaskContext.Provider value={{accounter, signer}}>{children}</MetaMaskContext.Provider>

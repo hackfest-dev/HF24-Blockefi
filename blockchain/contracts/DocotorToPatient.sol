@@ -5,9 +5,9 @@ pragma solidity >=0.7.0 <0.9.0;
 contract DocotorToPatient{
     address public doctor;
 
-    uint i=1;
+   
     struct Patient{
-        uint patientid;
+       string email;
          string name;
          uint age;
         
@@ -18,7 +18,7 @@ contract DocotorToPatient{
     }
 
     struct PatientRecord{
-        uint patientid;
+        string email;
         uint age;
         string name;
         string date;
@@ -29,8 +29,8 @@ contract DocotorToPatient{
 
 
         struct NotVerifiedarray{
-            uint repono;
-        uint patientid;
+        uint repono;
+        string email;
         uint age;
         string name;
         string date;
@@ -40,14 +40,15 @@ contract DocotorToPatient{
 
     uint labreportno=1;
 NotVerifiedarray[] public notVeriifed;
-   function NotVerifiedStored( uint patientid,
+   function NotVerifiedStored( 
+        string memory email,
         uint age,
         string memory name,
         string memory date,
         string memory testReportStatus
      ) public {
          
-            notVeriifed.push(NotVerifiedarray(labreportno,patientid,age,name,date,testReportStatus,false));
+            notVeriifed.push(NotVerifiedarray(labreportno,email,age,name,date,testReportStatus,false));
             labreportno++;
 
         }
@@ -57,45 +58,60 @@ NotVerifiedarray[] public notVeriifed;
 PatientRecord[] public patientRecord;
 
 Patient[] public patients;
- mapping(address=>bool)rigistered;
-    mapping(address=>uint)PatientUniqId;
-    function addPatient(string memory name, uint age) public{
-        patients.push(Patient(i,name,age));
-        PatientUniqId[msg.sender]=i;
-        i=i+1;
+ mapping(address=>bool) public rigistered;
+    mapping(address=>string)PatientUniqId;
+    function addPatient(string memory email,string memory name, uint age) public{
+        patients.push(Patient(email,name,age));
+        PatientUniqId[msg.sender]=email;
+     
     rigistered[msg.sender]=true;
 
     }
+function getPateints() public view returns(Patient[] memory)
+{
+    return patients;
+}
+    function isRegistered(address add) public view returns (bool)
+    {
+        return rigistered[add];
+    }
 
-    function addRecords( uint patientid,
+    function addRecords(string memory email,
         uint age,
         string memory name,
         string memory date,
         string memory testReportStatus,
         string memory Prescribtions) public {
             require(msg.sender==doctor,"only doctor can add patients record");
-            patientRecord.push(PatientRecord(patientid,age,name,date,testReportStatus,Prescribtions,true));
+            patientRecord.push(PatientRecord(email,age,name,date,testReportStatus,Prescribtions,true));
 
         }
 
-        function getpatientRecord(uint PatientId)public view returns(PatientRecord[] memory){
+         function compareStrings(string memory a, string memory b) public pure returns (bool) {
+        return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
+    }
+
+        function getpatientRecord(string memory email)public view returns(PatientRecord[] memory){
             
              uint counter=0;
              for(uint j=0;j<patientRecord.length;j++)
              {
-                if(patientRecord[j].patientid==PatientId)
+                string memory Emails=patientRecord[j].email;
+                if(compareStrings(Emails,email))
                 {
                     counter++;
                 }
              }
 
               PatientRecord[] memory internalPateintRecord=new PatientRecord[](counter);
+              uint k=0;
                for(uint j=0;j<patientRecord.length;j++)
              {
-                uint k=0;
-                if(patientRecord[j].patientid==PatientId)
+                
+                string memory Emails=patientRecord[j].email;
+                if(compareStrings(Emails,email))
                 {
-                    internalPateintRecord[k]=PatientRecord(patientRecord[j].patientid,patientRecord[j].age,patientRecord[j].name,patientRecord[j].date,patientRecord[j].testReportStatus,patientRecord[j].Prescribtions,patientRecord[j].verified);
+                    internalPateintRecord[k]=PatientRecord(patientRecord[j].email,patientRecord[j].age,patientRecord[j].name,patientRecord[j].date,patientRecord[j].testReportStatus,patientRecord[j].Prescribtions,patientRecord[j].verified);
                     k++;
                 }
              }
@@ -111,7 +127,7 @@ Patient[] public patients;
                 if(notVeriifed[z].repono==labReportNo)
                 {
                     notVeriifed[z].verified=true;
-                    addRecords(notVeriifed[z].patientid,notVeriifed[z].age,notVeriifed[z].name,notVeriifed[z].date,notVeriifed[z].testReportStatus,presc);
+                    addRecords(notVeriifed[z].email,notVeriifed[z].age,notVeriifed[z].name,notVeriifed[z].date,notVeriifed[z].testReportStatus,presc);
                 }
 
             }
@@ -134,12 +150,13 @@ Patient[] public patients;
              }
 
               NotVerifiedarray[] memory internalnotVeriifed=new NotVerifiedarray[](counter);
+               uint k=0;
                for(uint j=0;j<notVeriifed.length;j++)
              {
-                uint k=0;
+               
                 if(notVeriifed[j].verified==false)
                 {
-                    internalnotVeriifed[k]=NotVerifiedarray(notVeriifed[j].repono,notVeriifed[j].patientid,notVeriifed[j].age,notVeriifed[j].name,notVeriifed[j].date,notVeriifed[j].testReportStatus,notVeriifed[j].verified);
+                    internalnotVeriifed[k]=NotVerifiedarray(notVeriifed[j].repono,notVeriifed[j].email,notVeriifed[j].age,notVeriifed[j].name,notVeriifed[j].date,notVeriifed[j].testReportStatus,notVeriifed[j].verified);
                     k++;
 
                 }

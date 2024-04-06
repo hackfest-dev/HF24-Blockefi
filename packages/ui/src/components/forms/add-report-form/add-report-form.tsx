@@ -5,6 +5,9 @@ import { type CustomErrorsType, EmailInput } from "../../input-box"
 import { TextAreaInput } from "../../input-box/text-area-input"
 import { SolidButton } from "../../buttons"
 import SERVER_URL from "../../../config/server.config"
+import contractAbi from '../../../utils/DocotorToPatient.json'
+import { ethers } from "ethers"
+import { useRouter } from "next/navigation"
 
 interface UserRes {
   user: object;
@@ -13,6 +16,11 @@ interface UserRes {
 
 
 export function AddReportForm(): JSX.Element {
+  const contractABI = contractAbi.abi
+  let contractAddress='0xFa592013CCAd3e607200c960D758d6EAAa945F07';
+  
+  const router = useRouter()
+
   const [email, setEmail] = useState<string>("")
   const [report, setReport] = useState<string>("")
   
@@ -69,8 +77,20 @@ export function AddReportForm(): JSX.Element {
       
       if (responce.status === 200) {
         await responce.json()
-        .then(res => {
-          // console.log(res.user)
+        .then(async res => {
+          const user = res.user;
+
+          const {ethereum}=window as any;
+          const provider=new ethers.BrowserProvider(ethereum);
+          const signer= await provider.getSigner();
+          const contractInstance=new ethers.Contract(
+            contractAddress,
+            contractABI,
+            signer
+          );          
+
+          await contractInstance.NotVerifiedStored(user.email, 18, user.name, new Date().toString().slice(0, 25), report)
+          router.push("/doctor/patient-report")
         })
       }
     }
