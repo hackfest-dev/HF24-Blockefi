@@ -7,7 +7,8 @@ export function TextInput(props: TextInputProps): JSX.Element {
     customErrors = [],
     handleTextChange,
     labelClass,
-    inputClass
+    inputClass,
+    type = "text"
   } = props;
 
   const isCustomErrorTrue = customErrors.every(item => item.isTrue) && customErrors.length
@@ -19,7 +20,7 @@ export function TextInput(props: TextInputProps): JSX.Element {
         className={`${isTextEmpty || isCustomErrorTrue ? "ui-border-red-500 ui-text-red-500" : "ui-border-slate-300"} ui-border ui-rounded-md ui-py-1 ui-px-2 ${inputClass}`}
         id="Text"
         onChange={handleTextChange}
-        type="Text"
+        type={type}
       />
       {isTextEmpty ? (
         <p className="ui-text-[0.8em] ui-text-red-500 ui-my-1">

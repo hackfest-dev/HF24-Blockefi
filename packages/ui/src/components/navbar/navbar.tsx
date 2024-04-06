@@ -4,15 +4,8 @@ export function Navbar(props: NavbarProps): JSX.Element {
   const { title, navList = [] } = props;  
 
   return (
-    <nav className="ui-flex ui-justify-between ui-p-5">
-      <h1>{title}</h1>
-      <ul className="ui-flex ui-gap-10">
-        {navList.map((item) => (
-          <li key={item.url}>
-            <a href={item.url}>{item.value}</a>
-          </li>
-        ))}
-      </ul>
+    <nav className="flex justify-between items-center p-5 dark:border-white">
+      <h1 style={{ fontSize: '2em', fontWeight: 'bold', color: 'white', marginBottom: '1.25rem' }}>Blockefi</h1>
     </nav>
   );
 }

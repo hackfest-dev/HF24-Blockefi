@@ -1,6 +1,6 @@
 import type { ChangeEvent } from "react";
 
-export interface CustomErrorsType {
+export interface CustomTextErrorsType {
   errorMsg: string;
   isTrue: boolean;
 }
@@ -10,7 +10,8 @@ export interface TextInputProps {
   handleTextChange: (event: ChangeEvent<HTMLInputElement>) => void
   isTextEmpty?: boolean;
   isValidText?: boolean;
-  customErrors?: CustomErrorsType[];
+  customErrors?: CustomTextErrorsType[];
   labelClass?: string;
   inputClass?: string;
+  type?: "text" | "number" | "phone"
 }
