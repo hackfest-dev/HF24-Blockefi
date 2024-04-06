@@ -2,6 +2,9 @@ import "./globals.css";
 import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import React from "react";
+import ethers from 'ethers';
+import { MetaMaskProvider } from "../contexts/meta-maks.context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,9 +18,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }): JSX.Element {
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <MetaMaskProvider>
+        <body className={inter.className}>{children}</body>
+      </MetaMaskProvider>
     </html>
   );
 }
