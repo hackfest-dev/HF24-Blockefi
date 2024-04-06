@@ -164,13 +164,13 @@ export default function Page(): JSX.Element {
             </p>
 
             <div className="flex flex-col gap-2 md:mb-2 md:w-10/12 md:flex-row mb-5">
-              <button
+              <a
                 className="!bg-white text-black rounded-lg py-3 px-6 flex justify-center items-center gap-3"
+                href="./login"
                 style={{ fontFamily: "Tahoma, Geneva, sans-serif" }}
-                type="button"
               >
                 Login
-              </button>
+              </a>
             </div>
           </div>
           <div className="col-span-1 my-20 h-full max-h-[30rem] -translate-y-30 md:max-h-[36rem] lg:my-0 lg:ml-auto lg:max-h-[40rem] lg:translate-y-[-1rem]">
