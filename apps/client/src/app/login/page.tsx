@@ -1,6 +1,6 @@
 import { LoginForm } from "@repo/ui";
 import Image from "next/image";
-import BgImg from "../../assets/images/signup-bg.png";
+import BgImg from "../../assets/images/login-bg.png";
 
 export default function Page(): JSX.Element {
   return (

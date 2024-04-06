@@ -10,7 +10,7 @@ export function TextInput(props: TextInputProps): JSX.Element {
     inputClass
   } = props;
 
-  const isCustomErrorTrue = customErrors.every(item => !item.isTrue) && customErrors.length
+  const isCustomErrorTrue = customErrors.every(item => item.isTrue) && customErrors.length
 
   return (
     <div className="ui-flex ui-flex-col ui-gap-1">
@@ -33,7 +33,7 @@ export function TextInput(props: TextInputProps): JSX.Element {
           </p>
         ) : null
       )}
-      {!isTextEmpty && !isCustomErrorTrue ? <p className="ui-text-[0.8em] ui-opacity-0">*</p> : null}
+      {!isTextEmpty && !isCustomErrorTrue ? <p className="ui-text-[0.8em] ui-opacity-0 ui-my-1">*</p> : null}
     </div>
   );
 }
