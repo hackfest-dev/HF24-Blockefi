@@ -9,6 +9,7 @@ export interface PasswordInputProps {
   label?: string;
   handlePasswordChange: (event: ChangeEvent<HTMLInputElement>) => void
   isPasswordEmpty?: boolean;
+  isPasswordTooShort?: boolean;
   customErrors?: CustomPassErrorsType[];
   labelClass?: string;
   inputClass?: string;

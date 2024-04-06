@@ -10,8 +10,9 @@ export function EmailInput(props: EmailInputProps): JSX.Element {
     labelClass = "",
     inputClass = ""
   } = props;
+  
 
-  const isCustomErrorTrue = customErrors.every(item => !item.isTrue) && customErrors.length
+  const isCustomErrorTrue = customErrors.every(item => item.isTrue) && customErrors.length
 
   return (
     <div className=" ui-flex ui-flex-col ui-gap-1">
@@ -23,23 +24,23 @@ export function EmailInput(props: EmailInputProps): JSX.Element {
         type="email"
       />
       {isEmailEmpty ? (
-        <p className="text-[0.8em] text-red-500 my-1">
+        <p className="ui-text-[0.8em] ui-text-red-500 ui-my-1">
           * Please enter your email address
         </p>
       ) : null}
       {isValidEmail ? (
-        <p className="text-[0.8em] text-red-500 my-1">
+        <p className="ui-text-[0.8em] ui-text-red-500 ui-my-1">
           * Please enter a valid email address
         </p>
       ) : null}
       {customErrors.map((item) =>
         item.isTrue ? (
-          <p className="text-[0.8em] text-red-500 my-1" key={item.errorMsg}>
+          <p className="ui-text-[0.8em] ui-text-red-500 ui-my-1" key={item.errorMsg}>
             * {item.errorMsg}
           </p>
         ) : null
       )}
-      {!isEmailEmpty && !isCustomErrorTrue ? <p className="ui-text-[0.8em] ui-opacity-0">*</p> : null}
+      {!isEmailEmpty && !isValidEmail && !isCustomErrorTrue ? <p className="ui-text-[0.8em] ui-opacity-0 ui-my-1">*</p> : null}
     </div>
   );
 }
