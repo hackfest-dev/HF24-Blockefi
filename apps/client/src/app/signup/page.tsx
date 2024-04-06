@@ -1,6 +1,7 @@
 import { SignUpForm } from "@repo/ui";
 import Image from "next/image";
 import BgImg from "../../assets/images/signup-bg.png"
+import React from "react";
 
 export default function Page(): JSX.Element {
   return (

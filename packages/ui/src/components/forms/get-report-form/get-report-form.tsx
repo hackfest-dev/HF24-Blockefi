@@ -54,12 +54,12 @@ export function GetReportForm(props: GetReportFormProps): JSX.Element {
           )
         );
       
-      if (responce.status === 200) {
+      if (responce.status === 200) {        
         setEmailId(email)
-        await responce.json()
-        .then(res => {
-          // console.log(res.user)
-        })
+        // await responce.json()
+        // .then(res => {
+        //   // console.log(res.user)
+        // })
       }
     }
   }

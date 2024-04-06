@@ -78,3 +78,9 @@ export const handleLogin: RequestHandler = async (req, res) => {
       .status(401)
       .json({ error: "incorrect password", message: "password didn't match" });
 };
+
+export const getAuthUser: RequestHandler = async (req, res) => {
+  const user = (req as any).user
+
+  res.status(200).json({ user: user })
+}

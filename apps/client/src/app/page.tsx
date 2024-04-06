@@ -1,7 +1,30 @@
-import React from "react";
-import { Navbar } from "@repo/ui";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { type NavListType, Navbar } from "@repo/ui";
+import { useAuth } from "../contexts";
 
 export default function Page(): JSX.Element {
+  const user = useAuth();
+  const [navlist, setNavlist] = useState<NavListType[]>([]);
+
+  console.log(user);
+  
+  useEffect(() => {
+    !user
+      ? setNavlist([
+          { value: "Home", url: "/" },
+          { value: "Add Report", url: "/doctor/add-report" },
+          { value: "Verify Report", url: "/doctor/varify-report" },
+          { value: "Patient Report", url: "/doctor/patient-report" },
+        ])
+        : setNavlist([
+          { value: "Home", url: "/" },
+          { value: "Add Report", url: "/doctor/add-report" },
+          { value: "Patient Report", url: "/doctor/patient-report" },
+        ]);
+  }, [user]);
+
   return (
     <div>
       <div className="relative min-h-screen w-full">
@@ -19,8 +42,8 @@ export default function Page(): JSX.Element {
           <source src="/a.mp4" type="video/mp4" />
         </video>
 
-        <Navbar navList={[]} title="Blockefy" />
-        <div className="mt-28 grid h-full w-full grid-cols-1 place-items-center lg:mt-14 lg:grid-cols-2">
+        <Navbar navList={navlist} title="Blockefy" />
+        <div className="mt-28 grid h-full w-full grid-cols-1 place-items-center lg:mt-14 lg:grid-cols-2 pt-20">
           <div className="col-span-1 m-20">
             <h1
               style={{
@@ -163,7 +186,7 @@ export default function Page(): JSX.Element {
               Experience seamless access to your medical records
             </p>
 
-            <div className="flex flex-col gap-2 md:mb-2 md:w-10/12 md:flex-row mb-5">
+            {/* <div className="flex flex-col gap-2 md:mb-2 md:w-10/12 md:flex-row mb-5">
               <a
                 className="!bg-white text-black rounded-lg py-3 px-6 flex justify-center items-center gap-3"
                 href="./login"
@@ -171,7 +194,7 @@ export default function Page(): JSX.Element {
               >
                 Login
               </a>
-            </div>
+            </div> */}
           </div>
           <div className="col-span-1 my-20 h-full max-h-[30rem] -translate-y-30 md:max-h-[36rem] lg:my-0 lg:ml-auto lg:max-h-[40rem] lg:translate-y-[-1rem]">
             <img
@@ -222,10 +245,7 @@ export default function Page(): JSX.Element {
           </div>
         </div>
       </div>
-      <section
-        id="about"
-        className="container py-240 sm:py-3"
-      >
+      <section id="about" className="container py-240 sm:py-3">
         <div className="bg-muted/50  py-12">
           <div className="px-6 flex flex-col-reverse md:flex-row gap-8 md:gap-12">
             <img

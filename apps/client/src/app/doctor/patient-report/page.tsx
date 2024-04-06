@@ -1,10 +1,12 @@
 "use client"
 
 import { GetReportForm, ReportTable } from "@repo/ui"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Page(): JSX.Element {
   const [email, setEmail] = useState<string>("")
+
+  useEffect(() => {}, [email])
 
   return (
     <div className="p-20">
