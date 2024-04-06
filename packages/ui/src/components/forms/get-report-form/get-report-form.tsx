@@ -2,22 +2,16 @@
 
 import { type ChangeEvent, useState, useEffect, type FormEvent } from "react"
 import { type CustomErrorsType, EmailInput } from "../../input-box"
-import { TextAreaInput } from "../../input-box/text-area-input"
 import { SolidButton } from "../../buttons"
 import SERVER_URL from "../../../config/server.config"
+import type { GetReportFormProps } from "./get-report-form.type"
 
-interface UserRes {
-  user: object;
-  message: string;
-}
+export function GetReportForm(props: GetReportFormProps): JSX.Element {
+  const { setEmailId } = props
 
-
-export function AddReportForm(): JSX.Element {
   const [email, setEmail] = useState<string>("")
-  const [report, setReport] = useState<string>("")
   
   const [isEmailEmpty, setIsEmailEmpty] = useState<boolean>(false)
-  const [isReportEmpty, setIsReportEmpty] = useState<boolean>(false)
   
   const [customEmailError, setCustomEmailError] = useState<CustomErrorsType[]>([
     {
@@ -26,7 +20,7 @@ export function AddReportForm(): JSX.Element {
     },
   ]);
 
-  useEffect(() => {}, [isEmailEmpty, isReportEmpty, customEmailError])
+  useEffect(() => {}, [isEmailEmpty, customEmailError])
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (isEmailEmpty) setIsEmailEmpty(false);
@@ -39,18 +33,11 @@ export function AddReportForm(): JSX.Element {
     setEmail(event.target.value)
   }
 
-  const handleReportChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-    if (isReportEmpty) setIsReportEmpty(false);
 
-    setReport(event.target.value)
-  }
-
-
-  const handleReportSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleEmailSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
 
     if (!email.trim().length) setIsEmailEmpty(true);
-    else if (!report.trim().length) setIsReportEmpty(true);
     else {
       const url = `${SERVER_URL  }/user/${  email}`
       const responce: Response = await fetch(url)
@@ -68,6 +55,7 @@ export function AddReportForm(): JSX.Element {
         );
       
       if (responce.status === 200) {
+        setEmailId(email)
         await responce.json()
         .then(res => {
           // console.log(res.user)
@@ -77,7 +65,7 @@ export function AddReportForm(): JSX.Element {
   }
 
   return (
-    <form onSubmit={handleReportSubmit}>
+    <form className="ui-grid ui-grid-cols-[1fr_auto] ui-items-center ui-gap-5" onSubmit={handleEmailSubmit}>
       <EmailInput
         customErrors={customEmailError}
         handleEmailChange={handleEmailChange}
@@ -86,15 +74,7 @@ export function AddReportForm(): JSX.Element {
         label="Email"
         labelClass="ui-text-lg"
       />
-      <TextAreaInput 
-        handleTextChange={handleReportChange}
-        inputClass="ui-py-2.5 ui-px-3x"
-        isTextEmpty={isReportEmpty}
-        label="Report"
-        labelClass="ui-text-lg"
-        rows={5}
-      />
-      <SolidButton btnColor="ui-bg-primary-500" label="Add Report" type="submit"/>
+      <SolidButton btnColor="ui-bg-primary-500 ui-py-3" label="Get Report" type="submit"/>
     </form>
   )
 }
