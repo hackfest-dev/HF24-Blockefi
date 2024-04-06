@@ -1,7 +1,7 @@
 import express from "express"
 import { connectDb } from "./config/db.config"
 import { config } from "dotenv"
-import { authRouter } from "./routers"
+import { authRouter, userRouter } from "./routers"
 import cookieParser from "cookie-parser"
 import cors from "cors"
 
@@ -19,6 +19,7 @@ app.use(cors({
 }))
 
 app.use("/auth", authRouter.router)
+app.use("/user", userRouter.router)
 
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => console.log("Server Started running at the PORT:", PORT))

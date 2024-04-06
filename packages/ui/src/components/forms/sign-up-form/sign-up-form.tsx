@@ -1,6 +1,7 @@
 "use client";
 
 import { type FormEvent, useEffect, useState, type ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
 import {
   type CustomErrorsType,
   EmailInput,
@@ -9,7 +10,6 @@ import {
 import { TextInput } from "../../input-box/text-input/text-input";
 import { SolidButton } from "../../buttons";
 import SERVER_URL from "../../../config/server.config";
-import { useRouter } from "next/navigation";
 
 export function SignUpForm(): JSX.Element {
   const router = useRouter()

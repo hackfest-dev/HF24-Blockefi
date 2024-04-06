@@ -1,17 +1,17 @@
 import type { ChangeEvent } from "react";
 
-export interface CustomTextErrorsType {
+export interface CustomTextAreaErrorsType {
   errorMsg: string;
   isTrue: boolean;
 }
 
 export interface TextInputProps {
   label?: string;
-  handleTextChange: (event: ChangeEvent<HTMLInputElement>) => void
+  handleTextChange: (event: ChangeEvent<HTMLTextAreaElement>) => void
   isTextEmpty?: boolean;
   isValidText?: boolean;
-  customErrors?: CustomTextErrorsType[];
+  customErrors?: CustomTextAreaErrorsType[];
   labelClass?: string;
   inputClass?: string;
-  type?: "text" | "number" | "phone"
+  rows?: number;
 }
