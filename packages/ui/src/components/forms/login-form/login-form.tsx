@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState, type ChangeEvent } from "react";
+import { type FormEvent, useEffect, useState, type ChangeEvent } from "react";
 import { type CustomErrorsType, EmailInput, PasswordInput } from "../../input-box";
 import { SolidButton } from "../../buttons";
 import SERVER_URL from "../../../config/server.config";
@@ -99,7 +99,7 @@ export function LoginForm(): JSX.Element {
           )
         );
 
-      if (responce.status === 200) router.push("/")
+      if (responce.status === 200) router.push("/doctor/patient-report")
     }
   };
 
