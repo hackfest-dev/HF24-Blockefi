@@ -10,8 +10,12 @@ import { TextInput } from "../../input-box/text-input/text-input";
 import { SolidButton } from "../../buttons";
 import SERVER_URL from "../../../config/server.config";
 import { useRouter } from "next/navigation";
+import {ethers} from 'ethers';
+import contractAbi from '../../../utils/DocotorToPatient.json'
 
 export function SignUpForm(): JSX.Element {
+  const contractABI = contractAbi.abi
+  let contractAddress='0xe7fcD52458751ab51b6862698120D0271fC0BFf4';
   const router = useRouter()
 
   const [name, setName] = useState<string>("");
@@ -99,7 +103,18 @@ export function SignUpForm(): JSX.Element {
           )
         );
       
-      if (res.status === 200) router.push("/login")
+      if (res.status === 200) {
+        const {ethereum}=window as any;
+        const provider=new ethers.BrowserProvider(ethereum);
+        const signer= await provider.getSigner();
+        const contractInstance=new ethers.Contract(
+          contractAddress,
+          contractABI,
+          signer
+        );
+        await contractInstance.addPatient(name, 18);
+        router.push("/login")
+      }
     };
   };
 
