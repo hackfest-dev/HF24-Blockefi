@@ -4,6 +4,7 @@ import { SolidButton } from "@repo/ui";
 import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import contractAbi from "../../../utils/DocotorToPatient.json"
 import { ethers } from "ethers";
+import { useRouter } from "next/navigation";
 
 export default function Page(): JSX.Element {
   const contractABI = contractAbi.abi
@@ -12,7 +13,20 @@ export default function Page(): JSX.Element {
   const [prescription, setPrescription] = useState<string>("")
   const [reportList, setReportList] = useState<string[]>([])
 
+  const router = useRouter()
+
   useEffect(() => {
+    async function verifyDoctor () {
+      const {ethereum}=window as any;
+      const provider=new ethers.BrowserProvider(ethereum);
+      const accounts=await ethereum.request({
+        method: "eth_requestAccounts"
+      });      
+
+      if (parseInt(accounts[0]) !== 0x3fC7D8B01742aC098c56Fb9152392DE57842eE4F)
+        router.push("/login");
+    }
+
     async function getContract() {
       const {ethereum}=window as any;
       const provider=new ethers.BrowserProvider(ethereum);
@@ -36,6 +50,7 @@ export default function Page(): JSX.Element {
       )
     }
 
+    verifyDoctor()
     getContract()
   }, [reportList])
 

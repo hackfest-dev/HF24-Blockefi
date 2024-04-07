@@ -42,7 +42,7 @@ export default function Page(): JSX.Element {
           <source src="/a.mp4" type="video/mp4" />
         </video>
 
-        <Navbar navList={navlist} title="Blockefy" />
+        <Navbar navList={navlist} title="BLOCKEFI" />
         <div className="mt-28 grid h-full w-full grid-cols-1 place-items-center lg:mt-14 lg:grid-cols-2 pt-20">
           <div className="col-span-1 m-20">
             <h1

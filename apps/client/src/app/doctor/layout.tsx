@@ -17,8 +17,8 @@ export default function RootLayout({
       ? setNavlist([
           { value: "Home", url: "/" },
           { value: "Add Report", url: "/doctor/add-report" },
-          { value: "Patient Report", url: "/doctor/patient-report" },
           { value: "Verify Report", url: "/doctor/varify-report" },
+          { value: "Patient Report", url: "/doctor/patient-report" },
         ])
         : setNavlist([
           { value: "Home", url: "/" },
